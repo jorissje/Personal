@@ -39,7 +39,7 @@ foreach ($DnsServer in $InputDnsServer)
     $DnsServerForwarder = Get-DnsServerForwarder -ComputerName $server
 
     $Result_DnsServerForwarder += [PSCustomObject]@{
-        DnsForward_name        = $server
+        DnsForward_name        = $DnsServer
         DnsForward_IPaddresses = $DnsServerForwarder.IPAddress.IpAddressToString
     }
     Write-Host "DNS server forwarder IPs of [$($DnsServer)] gathered"
