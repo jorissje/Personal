@@ -1,7 +1,7 @@
-$allgpo = (get-gpo -all -domain "vopak.com")
-$agenciesgpo = ($allgpo | Where-Object displayname -match "ASPAC VN - ")
+$allgpo = (get-gpo -all -domain "domainname")
+$gpo = ($allgpo | Where-Object displayname -match "xxxxx - ")
 
-foreach ($agenciesgponame in $agenciesgpo)
+foreach ($gponame in $gpo)
 {
-Set-GPPermission -name $agenciesgponame.DisplayName -TargetName "VNDNA LCC GPO Admins" -TargetType Group -PermissionLevel GpoEditDeleteModifySecurity
+Set-GPPermission -name $agenciesgponame.DisplayName -TargetName "xxxxxxxxxx" -TargetType Group -PermissionLevel GpoEditDeleteModifySecurity
 }
