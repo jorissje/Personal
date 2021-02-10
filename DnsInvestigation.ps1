@@ -36,7 +36,7 @@ foreach ($forwarder in $ConditionalForwarders)
 #region external DNS servers
 foreach ($DnsServer in $InputDnsServer)
 {
-    $DnsServerForwarder = Get-DnsServerForwarder -ComputerName $server
+    $DnsServerForwarder = Get-DnsServerForwarder -ComputerName $DnsServer
 
     $Result_DnsServerForwarder += [PSCustomObject]@{
         DnsForward_name        = $DnsServer
