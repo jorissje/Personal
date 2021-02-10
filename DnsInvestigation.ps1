@@ -7,8 +7,9 @@
 
 #region variables
 #$cred = Get-Credential
-$InputDnsServer = Get-Content C:\Joris\DnsInvestigation.txt
-$InputAllServers = Get-Content C:\Joris\DnsInvestigation.txt
+$InputDnsServer = Get-Content E:\Joris\DnsInvestigationDC.txt
+$InputAllServers = Get-Content E:\Joris\DnsInvestigationAll.txt
+$TargetDC = hostname
 
 #Creating arrays
 $Result_ConditionalForwarders = @()
@@ -18,7 +19,7 @@ $Result_DnsStaticAddresses = @()
 
 #Gather DNS conditional forwarder information
 Write-Host Gathering DNS conditional forwarders...
-$ConditionalForwarders = Get-WmiObject -Namespace root\MicrosoftDNS -Class MicrosoftDNS_Zone -Filter "ZoneType = 4" | Select Name,
+$ConditionalForwarders = Get-WmiObject -Namespace root\MicrosoftDNS -Class MicrosoftDNS_Zone -Filter "ZoneType = 4" -ComputerName $TargetDC | Select Name,
 ContainerName,DsIntegrated,MasterServers,AllowUpdate
 
 #region conditional forwarders
@@ -59,7 +60,8 @@ foreach ($Server in $InputAllServers)
     Write-Host "Gathered static IP addresses from [$($server)]"
 }
 #endregion
-                                    
-$Result_ConditionalForwarders | export-csv c:\joris\cf.csv
-$Result_DnsServerForwarder | export-csv c:\joris\forwarder.csv
-$Result_DnsStaticAddresses | export-csv C:\joris\staticaddresses.csv
+
+
+$Result_ConditionalForwarders | Select-Object DnsCF_name,@{Expression={$_.DnsCF_ipaddress};Label="ip address";},DnsCF_domainintegrated | export-csv e:\joris\cf.csv
+$Result_DnsServerForwarder | Select-Object DnsForward_name,@{Expression={$_.DnsForward_IPaddresses};Label="ip address";} | export-csv e:\joris\forwarder.csv
+$Result_DnsStaticAddresses | Select-Object DnsStatic_name,@{Expression={$_.DnsStatic_IPaddress};Label="DNS ip address";},@{Expression={$_.DnsStatic_DnsServers};Label="DNS server";} | export-csv e:\joris\staticaddresses.csv
