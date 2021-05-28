@@ -19,7 +19,7 @@ foreach ($node in $Result_ClusterNodes.clusternode.name)
 $vms = get-vm -computername $node | Where-Object {$_.State -eq 'Running'}
 $Result_VMs += [PSCustomObject]@{
         node = $node
-        VM   = ([string]$vms.name)
+        VM   = $vms.name -join ","
                                 }
 Write-Host "[$($node)] contains [$($vms.name), added to result table]"
 }
