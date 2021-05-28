@@ -19,12 +19,10 @@ foreach ($node in $Result_ClusterNodes)
 $vms = get-vm -computername $node.clusternode | Where-Object {$_.State -eq 'Running'}
 $Result_VMs += [PSCustomObject]@{
         cluster = $node.cluster
-        node = $node.clusternode
+        nodes = [string]$node.clusternode.name
         VM   = $vms.name -join ","
                                 }
-Write-Host "Node [$($node.clusternode)] in cluster [$($node.cluster)] contains VM's [$($vms.name), they have been added to result table]"
+Write-Host "Node [$($node.clusternode.name)] in cluster [$($node.cluster)] contains VM's [$($vms.name), they have been added to result table]"
 }
 
-foreach ($result in $Result_VMs){
 $result_vms | Export-CSV -path "exportvms.csv" -NoTypeInformation
-                                }
