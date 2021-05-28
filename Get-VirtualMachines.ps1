@@ -11,17 +11,18 @@ $Result_ClusterNodes += [PSCustomObject]@{
         clusternode = $clusternode
 }
 
-write-host " [$($cluster)] contains [$($clusternode)], added to result table"
+write-host " Cluster [$($cluster)] contains the following nodes [$($clusternode)], they have been added to result table"
 }
 
-foreach ($node in $Result_ClusterNodes.clusternode.name)
+foreach ($node in $Result_ClusterNodes)
 {
-$vms = get-vm -computername $node | Where-Object {$_.State -eq 'Running'}
+$vms = get-vm -computername $node.clusternode | Where-Object {$_.State -eq 'Running'}
 $Result_VMs += [PSCustomObject]@{
-        node = $node
+        cluster = $node.cluster
+        node = $node.clusternode
         VM   = $vms.name -join ","
                                 }
-Write-Host "[$($node)] contains [$($vms.name), added to result table]"
+Write-Host "Node [$($node.clusternode)] in cluster [$($node.cluster)] contains VM's [$($vms.name), they have been added to result table]"
 }
 
 foreach ($result in $Result_VMs){
