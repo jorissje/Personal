@@ -17,9 +17,13 @@ write-host " [$($cluster)] contains [$($clusternode)], added to result table"
 foreach ($node in $Result_ClusterNodes.clusternode.name)
 {
 $vms = get-vm -computername $node | Where-Object {$_.State -eq 'Running'}
-$Result_VMs += [PSCustomOBject]@{
+$Result_VMs += [PSCustomObject]@{
         node = $node
-        VM   = $vms.name
+        VM   = ([string]$vms.name)
                                 }
 Write-Host "[$($node)] contains [$($vms.name), added to result table]"
 }
+
+foreach ($result in $Result_VMs){
+$result_vms | Export-CSV -path "exportvms.csv" -NoTypeInformation
+                                }
