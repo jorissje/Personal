@@ -21,5 +21,5 @@ $Result_VMs += [PSCustomOBject]@{
         node = $node
         VM   = $vms.name
                                 }
-Write-Host "[$($node)] contains [$($vms.name), added to result table]
+Write-Host "[$($node)] contains [$($vms.name), added to result table]"
 }
