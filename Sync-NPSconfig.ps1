@@ -3,10 +3,10 @@ $date = get-date -Format yyyy_MM_dd
 
 # Delete files older than 10 days
 $limit = (Get-Date).AddDays(-10)
-$backup_dir = "C:\NPS-Backup"
+$backup_dir = "C:\temp\NPS-Backup"
 
 # Define all NPS slaves computers here,
-$Computers = @('dc1.bidhankhatri.com.np','dc2.bidhankhatri.com.np')
+$Computers = @('IEAWS1S077')
 
 
 # Export NPS Config
