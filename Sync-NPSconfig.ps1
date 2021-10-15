@@ -15,7 +15,7 @@ Export-NpsConfiguration -Path $backup_dir\NPS_config.xml
 
 
 # Copy config to destination server
-$Computers | Foreach-Object { Copy-Item -Path $backup_dir\NPS_config.xml -Destination \\$_\C$\NPS-Backup\NPS_config.xml }
+$Computers | Foreach-Object { Copy-Item -Path $backup_dir\NPS_config.xml -Destination \\$_\C$\temp\NPS-Backup\NPS_config.xml }
 
 
 # Import new config in destination server
