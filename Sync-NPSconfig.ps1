@@ -6,7 +6,7 @@ $limit = (Get-Date).AddDays(-10)
 $backup_dir = "C:\temp\NPS-Backup"
 
 # Define all NPS slaves computers here,
-$Computers = @('IEAWS1S077')
+$Computers = @('IEAWS1S077.vopaktest.local')
 
 
 # Export NPS Config
