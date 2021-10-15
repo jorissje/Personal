@@ -19,7 +19,7 @@ $Computers | Foreach-Object { Copy-Item -Path $backup_dir\NPS_config.xml -Destin
 
 
 # Import new config in destination server
-$Computers | Foreach-Object { Invoke-Command -ComputerName $_ -ScriptBlock {Import-NPSConfiguration -Path C:\NPS-Backup\NPS_config.xml}}
+$Computers | Foreach-Object { Invoke-Command -ComputerName $_ -ScriptBlock {Import-NPSConfiguration -Path C:\temp\NPS-Backup\NPS_config.xml}}
 
 
 # Delete files older than the $limit.
